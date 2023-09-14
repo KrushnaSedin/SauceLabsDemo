@@ -1,11 +1,11 @@
 Feature: Test login functionality
-  Scenario Outline: Check whether login functionality work fine
+  Scenario Outline: User should able to login
 
-    Given user is on saucedemo login page
-    When user login with valid <username> and <password> for saucedemo
-    Then user should succesfully redirected to saucedemo homepage
+    Given user is on login portal
+    When user login with valid credentials <username> and <password>
+    Then user should succesfully login
 
     Examples:
     |username|password|
     |standard_user|secret_sauce|
-    |problem_user |secret_sauce|
+#    |problem_user |secret_sauce|

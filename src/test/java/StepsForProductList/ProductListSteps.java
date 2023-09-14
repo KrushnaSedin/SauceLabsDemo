@@ -1,4 +1,4 @@
-package StepsForSauceDemo;
+package StepsForProductList;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,6 +11,7 @@ import org.testng.Assert;
 import pages.LogInPage;
 import pages.MainPage;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class ProductListSteps {
@@ -28,19 +29,19 @@ public class ProductListSteps {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    @Given("user is on saucedemo loginpage")
-    public void user_is_on_saucedemo_loginpage() {
+    @Given("user is on saucedemo login portal")
+    public void user_is_on_saucedemo_login_portal() {
         driver.get("https://www.saucedemo.com/v1/");
     }
-    @When("^user login on saucedemo with valid (.*) and (.*)$")
-    public void user_login_on_saucedemo_with_valid_standard_user_and_secret_sauce(String username, String password) {
+    @When("^user login on saucedemo with valid credentials (.*) and (.*)$")
+    public void user_login_on_saucedemo_with_valid_credentials_standard_user_and_secret_sauce(String username, String password) {
         login = new LogInPage(driver);
         login.loginValidUser(username, password);
     }
     @Then("user should see list of {int} products")
     public void user_should_see_list_of_products(Integer int1) {
         mainPage=new MainPage(driver);
-        Assert.assertEquals(mainPage.getNumberOfProducts(),"6");
+        Assert.assertEquals(Optional.ofNullable(mainPage.getNumberOfProducts()),6);
     }
     @After
     public void tearDown(){
