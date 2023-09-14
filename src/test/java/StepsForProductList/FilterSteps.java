@@ -3,14 +3,12 @@ package StepsForProductList;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import pages.LogInPage;
 import pages.MainPage;
-import utils.InitialiseBrowser;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,12 +16,11 @@ public class FilterSteps {
     public WebDriver driver = null;
     LogInPage login;
     MainPage mainPage;
-    InitialiseBrowser browser;
     boolean result;
 
     @Before
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
+        //WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
