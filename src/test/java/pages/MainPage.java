@@ -1,6 +1,5 @@
 package pages;
 
-import com.github.dockerjava.api.model.Link;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,7 +23,7 @@ public class MainPage extends LogInPage {
         return products.size();
     }
 
-    public boolean priceFilter() throws InterruptedException {
+    public boolean priceFilterLowToHi() {
         boolean flag;
         //Store prices before filter
         List<WebElement> beforeFilterprices = driver.findElements(By.cssSelector("div.inventory_item_price"));
@@ -55,5 +54,93 @@ public class MainPage extends LogInPage {
         return flag;
     }
 
+    public boolean priceFilterHiToLow() {
+        boolean flag;
+        //Store prices before filter
+        List<WebElement> beforeFilterprices = driver.findElements(By.cssSelector("div.inventory_item_price"));
+        List<Double> beforeFilter = new ArrayList<>();
 
+        for (WebElement p1 : beforeFilterprices) {
+            beforeFilter.add(Double.valueOf(p1.getText().replace("$", "")));
+        }
+        Collections.sort(beforeFilter, Collections.reverseOrder());
+        //Select Hi to Low filter
+        filter.selectByValue("hilo");
+
+        //Store prices after filter
+        List<WebElement> afterFilterprices = driver.findElements(By.cssSelector("div.inventory_item_price"));
+        List<Double> afterFilter = new ArrayList<>();
+        for (WebElement p2 : afterFilterprices) {
+            afterFilter.add(Double.valueOf(p2.getText().replace("$", "")));
+        }
+        //Printing prices before and after
+        System.out.println(beforeFilter);
+        System.out.println(afterFilter);
+
+        if (beforeFilter.equals(afterFilter)) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+        return flag;
+    }
+
+    public boolean sortAtoZ() {
+        boolean flag;
+        //Store product names before filter
+        List<WebElement> productListBefore = driver.findElements(By.cssSelector("div.inventory_item_name"));
+        List<String> namesBeforeFilter = new ArrayList<>();
+
+        //Storing names
+        for (WebElement p : productListBefore) {
+            namesBeforeFilter.add(p.getText());
+        }
+        Collections.sort(namesBeforeFilter);
+        //Apply filter A to Z
+        filter.selectByValue("az");
+        //Store product names after filter
+        List<WebElement> productListAfter = driver.findElements(By.cssSelector("div.inventory_item_name"));
+        List<String> namesAfterFilter = new ArrayList<>();
+        for (WebElement p : productListAfter) {
+            namesAfterFilter.add(p.getText());
+        }
+        System.out.println(namesBeforeFilter);
+        System.out.println(namesAfterFilter);
+        //Check condition
+        if (namesBeforeFilter.equals(namesAfterFilter)) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+        return flag;
+    }
+    public boolean sortZtoA() {
+        boolean flag;
+        //Store product names before filter
+        List<WebElement> productListBefore = driver.findElements(By.cssSelector("div.inventory_item_name"));
+        List<String> namesBeforeFilter = new ArrayList<>();
+
+        //Storing names
+        for (WebElement p : productListBefore) {
+            namesBeforeFilter.add(p.getText());
+        }
+        Collections.sort(namesBeforeFilter,Collections.reverseOrder());
+        //Apply filter Z to A
+        filter.selectByValue("za");
+        //Store product names after filter
+        List<WebElement> productListAfter = driver.findElements(By.cssSelector("div.inventory_item_name"));
+        List<String> namesAfterFilter = new ArrayList<>();
+        for (WebElement p : productListAfter) {
+            namesAfterFilter.add(p.getText());
+        }
+        System.out.println(namesBeforeFilter);
+        System.out.println(namesAfterFilter);
+        //Check condition
+        if (namesBeforeFilter.equals(namesAfterFilter)) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+        return flag;
+    }
 }
