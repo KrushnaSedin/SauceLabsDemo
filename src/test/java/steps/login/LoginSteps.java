@@ -9,13 +9,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import pages.LogInPage;
+import pages.LogInPage_PF;
 import steps.BaseStep;
 import test.TestContext;
 
 import java.util.concurrent.TimeUnit;
 
 public class LoginSteps extends BaseStep {
-    LogInPage login;
+    //LogInPage login;
+    LogInPage_PF login;
     public LoginSteps(TestContext testContext) {
         super(testContext);
     }
@@ -25,7 +27,7 @@ public class LoginSteps extends BaseStep {
     }
     @When("^he provides credentials (.*) as username and (.*) as password")
     public void user_login_with_valid_credentials_standard_user_and_secret_sauce(String username, String password) {
-        login = new LogInPage(this.testContext.driver);
+        login = new LogInPage_PF(this.testContext.driver);
         login.loginValidUser(username, password);
     }
 
