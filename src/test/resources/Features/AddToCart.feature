@@ -74,3 +74,16 @@ Feature: To test Add to cart functionality
     Examples:
       | username      | password     |
       | standard_user | secret_sauce |
+
+  Scenario Outline: Menu bar should show list of options
+    Given user wants to try to login to saucedemo
+    When he provides credentials <username> as username and <password> as password
+    And he added single product to the cart
+    And he go to the cart
+    Then he opt to for Checkout option
+    When he selects menu bar
+    Then under menu bar there should be list of options
+
+    Examples:
+      | username      | password     |
+      | standard_user | secret_sauce |

@@ -5,11 +5,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CheckOutPage extends Cart_1 {
 
     Cart_1 cart=new Cart_1(driver);
     @FindBy(css="div.subheader")
     WebElement subHeading;
+
+    @FindBy(css="div.bm-burger-button")
+    WebElement menuBar;
+
+    @FindBy(css="a.bm-item")
+    List<WebElement> menuItems;
 
     public CheckOutPage(WebDriver driver) {
         super(driver);
@@ -19,5 +28,19 @@ public class CheckOutPage extends Cart_1 {
     public String storeSubHeadingText()
     {
         return subHeading.getText();
+    }
+    public void ClickOnMenuBar()
+    {
+        menuBar.click();
+    }
+
+    public List storeMenuItemList()
+    {
+        List<String> ItemList=new ArrayList<>();
+       for(WebElement p:menuItems)
+       {
+           ItemList.add(p.getText());
+       }
+       return ItemList;
     }
 }
