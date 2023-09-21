@@ -1,5 +1,6 @@
 package pages;
 
+import base.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainPage_PF extends LogInPage {
+public class MainPage_PF extends LogInPage_PF {
     //List<WebElement> products = driver.findElements(By.cssSelector("div.inventory_item_price"));
     @FindBy(css="div.inventory_item_price")
     List<WebElement> products;
@@ -30,8 +31,19 @@ public class MainPage_PF extends LogInPage {
 
     @FindBy(css="button.btn_secondary ")
     WebElement removeButton;
-    private WebElement dropdown = driver.findElement(By.cssSelector("select.product_sort_container"));
-    Select filter = new Select(dropdown);
+
+    @FindBy(css="svg[role='img']")
+    WebElement cartButton;
+
+    @FindBy(css="select.product_sort_container")
+    WebElement dropdown;
+    //private WebElement dropdown = driver.findElement(By.cssSelector("select.product_sort_container"));
+
+    public Select setFilter()
+    {
+        return new Select(dropdown);
+    }
+    //Select filter = new Select(dropdown);
 
     public MainPage_PF(WebDriver driver) {
         super(driver);
@@ -53,7 +65,7 @@ public class MainPage_PF extends LogInPage {
         }
         Collections.sort(beforeFilter);
         //Select Low to Hi filter
-        filter.selectByValue("lohi");
+        setFilter().selectByValue("lohi");
 
         //Store prices after filter
         List<WebElement> afterFilterprices = driver.findElements(By.cssSelector("div.inventory_item_price"));
@@ -84,7 +96,7 @@ public class MainPage_PF extends LogInPage {
         }
         Collections.sort(beforeFilter, Collections.reverseOrder());
         //Select Hi to Low filter
-        filter.selectByValue("hilo");
+        setFilter().selectByValue("hilo");
 
         //Store prices after filter
         List<WebElement> afterFilterprices = driver.findElements(By.cssSelector("div.inventory_item_price"));
@@ -116,7 +128,7 @@ public class MainPage_PF extends LogInPage {
         }
         Collections.sort(namesBeforeFilter);
         //Apply filter A to Z
-        filter.selectByValue("az");
+        setFilter().selectByValue("az");
         //Store product names after filter
         List<WebElement> productListAfter = driver.findElements(By.cssSelector("div.inventory_item_name"));
         List<String> namesAfterFilter = new ArrayList<>();
@@ -145,7 +157,7 @@ public class MainPage_PF extends LogInPage {
         }
         Collections.sort(namesBeforeFilter,Collections.reverseOrder());
         //Apply filter Z to A
-        filter.selectByValue("za");
+        setFilter().selectByValue("za");
         //Store product names after filter
         List<WebElement> productListAfter = driver.findElements(By.cssSelector("div.inventory_item_name"));
         List<String> namesAfterFilter = new ArrayList<>();
@@ -181,5 +193,16 @@ public class MainPage_PF extends LogInPage {
     public boolean removeButtonDisplayed()
     {
         return removeButton.isDisplayed();
+    }
+    public void removeItemFromCart()
+    {
+        removeButton.click();
+    }
+    public boolean toCheckEmptyCart()
+    {
+        return cartCount.isDisplayed();
+    }
+    public void clickOnCartButton(){
+        cartButton.click();
     }
 }

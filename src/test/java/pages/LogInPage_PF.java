@@ -1,5 +1,6 @@
 package pages;
 
+import base.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,5 +27,6 @@ public class LogInPage_PF {
         txt_username.sendKeys(username);
         txt_password.sendKeys(password);
         loginButton.click();
+        //return new MainPage_PF(driver);
     }
 }
