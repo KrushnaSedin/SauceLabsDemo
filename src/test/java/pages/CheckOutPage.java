@@ -20,6 +20,15 @@ public class CheckOutPage extends Cart_1 {
     @FindBy(css="a.bm-item")
     List<WebElement> menuItems;
 
+    @FindBy(id="first-name")
+    WebElement firstNameField;
+    @FindBy(id="last-name")
+    WebElement lastNameField;
+    @FindBy(id="postal-code")
+    WebElement postalCodeField;
+    @FindBy(css="input[type=submit]")
+    WebElement continueBtn;
+
     public CheckOutPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver,this);
@@ -43,4 +52,21 @@ public class CheckOutPage extends Cart_1 {
        }
        return ItemList;
     }
+    public void enterFirstname(String firstName)
+    {
+        firstNameField.sendKeys(firstName);
+    }
+    public void enterLastname(String lastName)
+    {
+        lastNameField.sendKeys(lastName);
+    }
+    public void enterPostalCode(String postalCode)
+    {
+        postalCodeField.sendKeys(postalCode);
+    }
+    public void clickOnContinue()
+    {
+        continueBtn.click();
+    }
+
 }

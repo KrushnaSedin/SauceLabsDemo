@@ -87,3 +87,17 @@ Feature: To test Add to cart functionality
     Examples:
       | username      | password     |
       | standard_user | secret_sauce |
+
+  Scenario Outline: User should able to do payment
+    Given user wants to try to login to saucedemo
+    When he provides credentials <username> as username and <password> as password
+    And he added single product to the cart
+    And he go to the cart
+    Then he opt to for Checkout option
+    When He provide valid information
+    And Select Continue option
+    Then User should see valid payment amount
+
+    Examples:
+      | username      | password     |
+      | standard_user | secret_sauce |
