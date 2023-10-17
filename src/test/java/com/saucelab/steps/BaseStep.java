@@ -1,6 +1,6 @@
-package steps;
+package com.saucelab.steps;
 
-import test.TestContext;
+import com.saucelab.test.TestContext;
 
 public class BaseStep {
     public TestContext testContext;

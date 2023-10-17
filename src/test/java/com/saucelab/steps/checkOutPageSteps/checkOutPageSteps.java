@@ -1,11 +1,11 @@
-package steps.checkOutPageSteps;
+package com.saucelab.steps.checkOutPageSteps;
 
 import io.cucumber.java.en.*;
 import org.testng.Assert;
-import pages.CheckOutPage;
-import pages.PaymentPage;
-import steps.BaseStep;
-import test.TestContext;
+import com.saucelab.pages.CheckOutPage;
+import com.saucelab.pages.PaymentPage;
+import com.saucelab.steps.BaseStep;
+import com.saucelab.test.TestContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,4 +47,15 @@ public class checkOutPageSteps extends BaseStep {
         paymentPage=new PaymentPage(this.testContext.driver);
         Assert.assertEquals(paymentPage.getPaymentText(),"FREE PONY EXPRESS DELIVERY!");
     }
+    @When("User proceed to place order")
+    public void user_proceed_to_place_order() {
+        paymentPage=new PaymentPage(this.testContext.driver);
+        paymentPage.clickOnFinish();
+    }
+    @Then("User should be able to successfully place order")
+    public void user_should_be_able_to_successfully_place_order() {
+        paymentPage=new PaymentPage(this.testContext.driver);
+        Assert.assertEquals(paymentPage.getThankYouMessage(),"THANK YOU FOR YOUR ORDER");
+    }
+
 }

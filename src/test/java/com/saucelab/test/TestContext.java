@@ -1,4 +1,4 @@
-package test;
+package com.saucelab.test;
 
 import org.openqa.selenium.WebDriver;
 
