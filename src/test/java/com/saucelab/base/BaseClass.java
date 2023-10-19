@@ -1,10 +1,12 @@
 package com.saucelab.base;
 
+import com.saucelab.test.TestContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
@@ -15,10 +17,14 @@ import java.util.concurrent.TimeUnit;
 public class BaseClass {
 
     protected WebDriver driver;
+    protected TestContext testContext;
 
-    public BaseClass(WebDriver driver)
+    public BaseClass(WebDriver driver,TestContext testContext)
     {
+        this.testContext=testContext;
         this.driver=driver;
+        this.testContext.lastPage=this;
+        PageFactory.initElements(driver, this);
     }
     public void setUp() {
         ChromeOptions options = new ChromeOptions();

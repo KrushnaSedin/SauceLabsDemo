@@ -1,5 +1,6 @@
 package com.saucelab.steps.login;
 
+import com.saucelab.pages.MainPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -17,8 +18,6 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class LoginSteps extends BaseStep {
-    //LogInPage login;
-    LogInPage login;
     public LoginSteps(TestContext testContext) {
         super(testContext);
     }
@@ -26,12 +25,18 @@ public class LoginSteps extends BaseStep {
     public void user_is_on_login_portal() throws IOException {
         System.out.println(CommonUtils.getConfigProperty("BASE_URL"));
         this.testContext.driver.get(CommonUtils.getConfigProperty("BASE_URL"));
+        new LogInPage(this.testContext.driver,this.testContext);
 
     }
-    @When("^he provides credentials (.*) as username and (.*) as password")
+    @When("^he provides valid credentials (.*) as username and (.*) as password")
     public void user_login_with_valid_credentials_standard_user_and_secret_sauce(String username, String password) {
-        login = new LogInPage(this.testContext.driver);
-        login.loginAsValidUser(username, password);
+        LogInPage login = (LogInPage) testContext.lastPage;
+        login.tryLogin(username, password, MainPage::new);
+    }
+    @When("^he provides invalid credentials (.*) as username and (.*) as password")
+    public void user_login_with_invalid_credentials_standard_user_and_secret_sauce(String username, String password) {
+        LogInPage login = (LogInPage) testContext.lastPage;
+        login.tryLogin(username, password, LogInPage::new);
     }
 
     @Then("user should be successfully logged in")
@@ -52,4 +57,7 @@ public class LoginSteps extends BaseStep {
         this.testContext.driver.quit();
     }
 
+    @Then("user should not be logged in")
+    public void userShouldNotBeLoggedIn() {
+    }
 }

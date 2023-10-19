@@ -1,6 +1,7 @@
 package com.saucelab.pages;
 
 import com.saucelab.base.BaseClass;
+import com.saucelab.test.TestContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -42,9 +43,8 @@ public class MainPage extends BaseClass {
     }
     //Select filter = new Select(dropdown);
 
-    public MainPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public MainPage(WebDriver driver, TestContext testContext) {
+        super(driver,testContext);
     }
 
     public Integer getNumberOfProducts() {
@@ -95,6 +95,6 @@ public class MainPage extends BaseClass {
 
     public CartPage clickOnCartButton() {
         cartButton.click();
-        return new CartPage(driver);
+        return new CartPage(driver,testContext);
     }
 }

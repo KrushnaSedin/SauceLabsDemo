@@ -1,6 +1,7 @@
 package com.saucelab.pages;
 
 import com.saucelab.base.BaseClass;
+import com.saucelab.test.TestContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,9 +10,9 @@ import org.openqa.selenium.support.PageFactory;
 public class CartPage extends BaseClass {
     //MainPage_PF main=new MainPage_PF(driver);
 
-    public CartPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public CartPage(WebDriver driver, TestContext testContext) {
+        super(driver,testContext);
+
     }
 
     @FindBy(css = "a.btn_action")
@@ -29,11 +30,11 @@ public class CartPage extends BaseClass {
 
     public MainPage clickOnContinueShoppingButton() {
         continueShoppingBtn.click();
-        return new MainPage(driver);
+        return new MainPage(driver,testContext);
     }
 
     public CheckOutPage clickOnCheckout() {
         checkOutButton.click();
-        return new CheckOutPage(driver);
+        return new CheckOutPage(driver,testContext);
     }
 }

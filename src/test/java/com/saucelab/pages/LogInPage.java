@@ -1,11 +1,15 @@
 package com.saucelab.pages;
 
 import com.saucelab.base.BaseClass;
+import com.saucelab.test.TestContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utils.CommonUtils;
+
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class LogInPage extends BaseClass {
 
@@ -18,16 +22,15 @@ public class LogInPage extends BaseClass {
     @FindBy(id = "login-button")
     WebElement loginButton;
 
-    public LogInPage(WebDriver driver) {
+    public LogInPage(WebDriver driver, TestContext testContext) {
         //this.driver=driver;
-        super(driver);
-        PageFactory.initElements(driver, this);
+        super(driver,testContext);
     }
 
-    public void loginAsValidUser(String username, String password) {
+    public <T> T tryLogin(String username, String password, BiFunction<WebDriver,TestContext,T> factory) {
         txt_username.sendKeys(username);
         txt_password.sendKeys(password);
         loginButton.click();
-        //return new MainPage_PF(driver);
+        return factory.apply(this.driver,testContext);
     }
 }

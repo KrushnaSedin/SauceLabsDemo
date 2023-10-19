@@ -1,5 +1,6 @@
 package com.saucelab.pages;
 
+import com.saucelab.test.TestContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +11,6 @@ import java.util.List;
 
 public class CheckOutPage extends CartPage {
 
-    CartPage cart = new CartPage(driver);
     @FindBy(css = "div.subheader")
     WebElement subHeading;
 
@@ -29,9 +29,8 @@ public class CheckOutPage extends CartPage {
     @FindBy(css = "input[type=submit]")
     WebElement continueBtn;
 
-    public CheckOutPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public CheckOutPage(WebDriver driver, TestContext testContext) {
+        super(driver,testContext);
     }
 
     public String storeSubHeadingText() {
@@ -64,7 +63,7 @@ public class CheckOutPage extends CartPage {
 
     public PaymentPage clickOnContinue() {
         continueBtn.click();
-        return new PaymentPage(driver);
+        return new PaymentPage(driver,testContext);
     }
 
 }
